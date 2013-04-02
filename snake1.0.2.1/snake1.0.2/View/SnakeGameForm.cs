@@ -57,7 +57,7 @@ namespace snake1._0._2.View
         private delegate void AddItemControlDelegate(Control ControlToUpdate, SnakePiecesView item);
         private delegate void AddFoodItemControlDelegate(Control ControlToUpdate, FoodView item);
 
-        private delegate void ChangeSPVLocControlDelegate(SnakePiecesView spvToUpdate, System.Drawing.Point newLoc);
+        private delegate void ChangeLocControlDelegate(System.Windows.Forms.Control ControlToUpdate, System.Drawing.Point newLoc);
 
         private delegate void RemoveItemControlDelegate(Control ControlToUpdate, System.Windows.Forms.Control item);
         //private delegate void RemoveItemControlDelegate(Control ControlToUpdate, SnakePiecesView item);
@@ -89,17 +89,17 @@ namespace snake1._0._2.View
                 ControlToUpdate.Controls.Add(item);
             }
         }
-        private void ChangeSnakePiecesViewLoc(SnakePiecesView spvToUpdate, System.Drawing.Point newLoc)
+        private void ChangePiecesViewLoc(System.Windows.Forms.Control ControlToUpdate, System.Drawing.Point newLoc)
         {
-            if (spvToUpdate.InvokeRequired)
+            if (ControlToUpdate.InvokeRequired)
             {
-                spvToUpdate.Invoke(new ChangeSPVLocControlDelegate(ChangeSnakePiecesViewLoc),
-                    spvToUpdate,
+                ControlToUpdate.Invoke(new ChangeLocControlDelegate(ChangePiecesViewLoc),
+                    ControlToUpdate,
                     newLoc);
             }
             else
             {
-                spvToUpdate.Location = newLoc;
+                ControlToUpdate.Location = newLoc;
             } 
         }
 
@@ -221,16 +221,40 @@ namespace snake1._0._2.View
                             foodItems = this.queueOfAppleLocation.Dequeue();
                         }
 
-                        for (int i = 0; i < foodList.Count; i++)
+                        if (foodItems.Count > this.foodList.Count)
                         {
-                            RemoveItemListOfViewPieces(this.GamePanel, foodList[i]);
+                            int itemsDiff = foodItems.Count - this.foodList.Count;
+                            for (int i = 1; i < itemsDiff + 1; i++)
+                            {
+                                FoodView foodPieces = new FoodView(foodItems[foodItems.Count - i].AppleLocation);
+                                this.foodList.Add(foodPieces);
+                                AddItemListOfViewFood(this.GamePanel, foodPieces);
+                            }
+                        }
+                        else if (items.Count < this.foodList.Count)
+                        {
+                            int itemsDiff = this.foodList.Count - foodItems.Count;
+                            for (int i = 1; i < itemsDiff + 1; i++)
+                            {
+                                RemoveItemListOfViewPieces(this.GamePanel, this.foodList[this.foodList.Count - 1]);
+                                this.snakeBody.RemoveAt(this.snakeBody.Count - 1);
+                            }
                         }
                         for (int i = 0; i < foodItems.Count; i++)
                         {
-                            FoodView snakeFood = new FoodView(foodItems[i].AppleLocation);
-                            foodList.Add(snakeFood);
-                            AddItemListOfViewFood(this.GamePanel, snakeFood);
+                            ChangePiecesViewLoc(this.foodList[i], foodItems[i].AppleLocation);
                         }
+
+                        //for (int i = 0; i < foodList.Count; i++)
+                        //{
+                        //    RemoveItemListOfViewPieces(this.GamePanel, foodList[i]);
+                        //}
+                        //for (int i = 0; i < foodItems.Count; i++)
+                        //{
+                        //    FoodView snakeFood = new FoodView(foodItems[i].AppleLocation);
+                        //    foodList.Add(snakeFood);
+                        //    AddItemListOfViewFood(this.GamePanel, snakeFood);
+                        //}
                     }
 
                     if (mySyncEvents.ComsumeCollectionEvent.WaitOne(0))
@@ -262,14 +286,14 @@ namespace snake1._0._2.View
                             int itemsDiff = this.snakeBody.Count - items.Count;
                             for (int i = 1; i < itemsDiff + 1; i++)
                             {
-                                AddItemListOfViewPieces(this.GamePanel, this.snakeBody[this.snakeBody.Count - 1]);
+                                RemoveItemListOfViewPieces(this.GamePanel, this.snakeBody[this.snakeBody.Count - 1]);
                                 this.snakeBody.RemoveAt(this.snakeBody.Count - 1);
                             }
                         }
 
                         for (int i = 0; i < items.Count; i++)
                         {
-                            ChangeSnakePiecesViewLoc(this.snakeBody[i], items[i].SnakePieceLocation);
+                            ChangePiecesViewLoc(this.snakeBody[i], items[i].SnakePieceLocation);
                             //this.snakeBody[i].Location = items[i].SnakePieceLocation;
 
                             //SnakePiecesView snakePieces = new SnakePiecesView(items[i].SnakePieceLocation);
