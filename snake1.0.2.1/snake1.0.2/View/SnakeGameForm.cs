@@ -14,6 +14,7 @@ namespace snake1._0._2.View
     partial class SnakeGameForm : Form
     {
         private Boolean formIsClosed;
+        private SnakeModel.movement currentMove = SnakeModel.movement.RIGHT;
         private List<SnakePiecesView> snakeBody;
         private List<FoodView> foodList;
         private SyncEvents mySyncEvents;
@@ -22,7 +23,7 @@ namespace snake1._0._2.View
         private Queue<List<SnakeFoodModel>> queueOfAppleLocation;
         private Queue<System.Windows.Forms.Panel> queueGameMap;
         private Thread updateFormThread;
-        private Thread observeAreaThread;
+        //private Thread observeAreaThread;
 
         public SnakeGameForm(Queue<SnakeModel.movement> queue, Queue<List<SnakePiecesModel>> queueOfLocationData, Queue<List<SnakeFoodModel>> queueOfAppleLocation,
                             Queue<System.Windows.Forms.Panel> queueGameMap, SyncEvents mySyncEvents)
@@ -46,8 +47,8 @@ namespace snake1._0._2.View
                 mySyncEvents.MapSizeChanged.Set();
             }
 
-            this.observeAreaThread = new Thread(new ThreadStart(observeAreaProc));
-            this.observeAreaThread.Start();
+            //this.observeAreaThread = new Thread(new ThreadStart(observeAreaProc));
+            //this.observeAreaThread.Start();
 
             this.updateFormThread = new Thread(new ThreadStart(updateFormProc));
             this.updateFormThread.Start();
@@ -134,38 +135,53 @@ namespace snake1._0._2.View
         }
       
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
- 
             switch(keyData)
             {
                 case Keys.Left:
-                    lock (((ICollection)queueOfMovement).SyncRoot)
+                    if (this.currentMove != SnakeModel.movement.RIGHT)
                     {
-                        queueOfMovement.Enqueue(SnakeModel.movement.LEFT);
-                        mySyncEvents.MouvementChangeEvent.Set();
+                        lock (((ICollection)queueOfMovement).SyncRoot)
+                        {
+                            queueOfMovement.Enqueue(SnakeModel.movement.LEFT);
+                            mySyncEvents.MouvementChangeEvent.Set();
+                        }
+                        this.currentMove = SnakeModel.movement.LEFT;
                     }
                     //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.LEFT;
                     break;
                 case Keys.Right:
-                    lock (((ICollection)queueOfMovement).SyncRoot)
+                    if (this.currentMove != SnakeModel.movement.LEFT)
                     {
-                        queueOfMovement.Enqueue(SnakeModel.movement.RIGHT);
-                        mySyncEvents.MouvementChangeEvent.Set();
+                        lock (((ICollection)queueOfMovement).SyncRoot)
+                        {
+                            queueOfMovement.Enqueue(SnakeModel.movement.RIGHT);
+                            mySyncEvents.MouvementChangeEvent.Set();
+                        }
+                        this.currentMove = SnakeModel.movement.RIGHT;
                     }
                     //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.RIGHT;
                     break;
                 case Keys.Up:
-                    lock (((ICollection)queueOfMovement).SyncRoot)
+                    if (this.currentMove != SnakeModel.movement.DOWN)
                     {
-                        queueOfMovement.Enqueue(SnakeModel.movement.UP);
-                        mySyncEvents.MouvementChangeEvent.Set();
+                        lock (((ICollection)queueOfMovement).SyncRoot)
+                        {
+                            queueOfMovement.Enqueue(SnakeModel.movement.UP);
+                            mySyncEvents.MouvementChangeEvent.Set();
+                        }
+                        this.currentMove = SnakeModel.movement.UP;
                     }
                     //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.UP;
                     break;
                 case Keys.Down:
-                    lock (((ICollection)queueOfMovement).SyncRoot)
+                    if (this.currentMove != SnakeModel.movement.UP)
                     {
-                        queueOfMovement.Enqueue(SnakeModel.movement.DOWN);
-                        mySyncEvents.MouvementChangeEvent.Set();
+                        lock (((ICollection)queueOfMovement).SyncRoot)
+                        {
+                            queueOfMovement.Enqueue(SnakeModel.movement.DOWN);
+                            mySyncEvents.MouvementChangeEvent.Set();
+                        }
+                        this.currentMove = SnakeModel.movement.DOWN;
                     }
                     //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.DOWN;
                     break;
@@ -196,13 +212,13 @@ namespace snake1._0._2.View
         }
 #endregion
  
-        private void observeAreaProc()
-        {
-            //while (true)
-            //{
+        //private void observeAreaProc()
+        //{
+        //    //while (true)
+        //    //{
 
-            //}
-        }
+        //    //}
+        //}
 
         private void updateFormProc()
         {
@@ -244,17 +260,6 @@ namespace snake1._0._2.View
                         {
                             ChangePiecesViewLoc(this.foodList[i], foodItems[i].AppleLocation);
                         }
-
-                        //for (int i = 0; i < foodList.Count; i++)
-                        //{
-                        //    RemoveItemListOfViewPieces(this.GamePanel, foodList[i]);
-                        //}
-                        //for (int i = 0; i < foodItems.Count; i++)
-                        //{
-                        //    FoodView snakeFood = new FoodView(foodItems[i].AppleLocation);
-                        //    foodList.Add(snakeFood);
-                        //    AddItemListOfViewFood(this.GamePanel, snakeFood);
-                        //}
                     }
 
                     if (mySyncEvents.ComsumeCollectionEvent.WaitOne(0))
@@ -263,13 +268,6 @@ namespace snake1._0._2.View
                         {
                             items = this.queueOfLocationData.Dequeue();
                         }
-
-                        //CleanGameAreaShowFood();
-                        //Clean displayed pieces
-                        //for (int i = 0; i < this.snakeBody.Count; i++)
-                        //{
-                        //    RemoveItemListOfViewPieces(this.GamePanel, this.snakeBody[i]);
-                        //}
 
                         if (items.Count > this.snakeBody.Count)
                         {
@@ -294,22 +292,7 @@ namespace snake1._0._2.View
                         for (int i = 0; i < items.Count; i++)
                         {
                             ChangePiecesViewLoc(this.snakeBody[i], items[i].SnakePieceLocation);
-                            //this.snakeBody[i].Location = items[i].SnakePieceLocation;
-
-                            //SnakePiecesView snakePieces = new SnakePiecesView(items[i].SnakePieceLocation);
-                            //this.snakeBody.Add(snakePieces);
-                            //AddItemListOfViewPieces(this.GamePanel, snakePieces);
-
-
-                            //ClearGameArea(this.GamePanel);
-                            //RemoveItemListOfViewPieces(this.GamePanel, new SnakePiecesView(items[i].SnakePieceLocation));
-                            //this.snakeBody[i].Location = this.myGame.TheSolidSnake.SnakeBodyPieces[i].SnakePieceLocation;
                         }
-                        //for (int i = 0; i < foodItems.Count; i++)
-                        //{ 
-                        //    FoodView snakeFood = new FoodView(foodItems[i].AppleLocation);
-                        //    AddItemListOfViewFood(this.GamePanel, snakeFood);
-                        //}
                     }
                 }
             }
@@ -323,8 +306,6 @@ namespace snake1._0._2.View
         {
             //Clear all elements on the panel
             ClearGameArea(this.GamePanel);
-            //Re-Display the food
-
         }
 
 

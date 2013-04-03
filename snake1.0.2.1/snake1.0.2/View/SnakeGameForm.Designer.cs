@@ -43,16 +43,17 @@
             this.GamePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GamePanel.Location = new System.Drawing.Point(0, 0);
             this.GamePanel.Name = "GamePanel";
-            this.GamePanel.Size = new System.Drawing.Size(284, 262);
+            this.GamePanel.Size = new System.Drawing.Size(600, 400);
             this.GamePanel.TabIndex = 0;
             // 
             // SnakeGameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.ClientSize = new System.Drawing.Size(600, 400);
             this.Controls.Add(this.GamePanel);
             this.Name = "SnakeGameForm";
+            this.ShowIcon = false;
             this.Text = "SnakeGame";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SnakeGameForm_FormClosed);
             this.Resize += new System.EventHandler(this.SnakeGameForm_Resize);

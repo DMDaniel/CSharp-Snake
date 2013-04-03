@@ -9,8 +9,13 @@ namespace snake1._0._2.Model
     {
 
         private Point appleLocation;
+        public static int defaultAppleHeight = 12;
+        public static int defaultAppleWidth = 12;
+        
         private Color appleColor;
-        private int visibleTime = 50;  //Number of Timer tick
+         
+        public static int defaultVisibleTime = 50; //Number of Timer tick
+        private int visibleTime;  
 
 #region Acsessors
         public Color AppleColor
@@ -51,12 +56,14 @@ namespace snake1._0._2.Model
         {
             this.appleLocation.X = 0;
             this.appleLocation.Y = 0;
+            this.visibleTime = SnakeFoodModel.defaultVisibleTime;
         }
 
         public SnakeFoodModel(int x, int y)
         {
             this.appleLocation.X = x;
             this.appleLocation.Y = y;
+            this.visibleTime = SnakeFoodModel.defaultVisibleTime;
         }
 #endregion
 
@@ -67,8 +74,8 @@ namespace snake1._0._2.Model
             int yRandNumber;
             do
             {
-                xRandNumber = myRandObj.Next(0, gameMap.BottomRight.X);
-                yRandNumber = myRandObj.Next(0, gameMap.BottomRight.Y);
+                xRandNumber = myRandObj.Next(0, (gameMap.BottomRight.X / SnakeFoodModel.defaultAppleWidth)) + SnakeFoodModel.defaultAppleWidth;
+                yRandNumber = myRandObj.Next(0, (gameMap.BottomRight.Y / SnakeFoodModel.defaultAppleHeight)) + SnakeFoodModel.defaultAppleHeight;
             } while (!isNotSnakeBodyLocation(snakeBody, xRandNumber, yRandNumber));
 
             this.appleLocation.X = xRandNumber;

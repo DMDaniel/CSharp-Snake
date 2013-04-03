@@ -18,7 +18,7 @@ namespace snake1._0._2.Model
         private Queue<List<SnakeFoodModel>> queueOfAppleLocation;
         private Queue<System.Windows.Forms.Panel> queueGameMap;
         private Map gameMap;
-             
+    
         public SnakeModel TheSolidSnake
         {
             get { return this.theSolidSnake; }
@@ -38,9 +38,8 @@ namespace snake1._0._2.Model
         }
 
         public SnakeGameModel(Queue<SnakeModel.movement> queueOfMovement, Queue<List<SnakePiecesModel>> queueOfLocationData, Queue<List<SnakeFoodModel>> queueOfAppleLocation,
-                                Queue<System.Windows.Forms.Panel> queueGameMap, SyncEvents mySyncEvents)
+            Queue<System.Windows.Forms.Panel> queueGameMap, SyncEvents mySyncEvents)
         {
- 
             this.theSolidSnake = new SnakeModel();
             this.theSolidSnake.CurrentMove = SnakeModel.movement.RIGHT;
             this.theFreshFood = new SnakeFoodModel();
@@ -54,11 +53,8 @@ namespace snake1._0._2.Model
             this.mySyncEvents = mySyncEvents;
             //this.myLaunchWorkEvent = new EventWaitHandle(false, EventResetMode.AutoReset);
             //this.myStopWorkEvent = new EventWaitHandle(false, EventResetMode.AutoReset);
-
-            
             this.runningGameThread = new Thread(new ThreadStart(runningGameFlow));
             this.runningGameThread.Start();
-
         }
 
         private void runningGameFlow()
@@ -94,7 +90,7 @@ namespace snake1._0._2.Model
                         
                         if (this.theFreshFood.VisibleTime.Equals(0))
                         {
-                            this.theFreshFood.VisibleTime = 50;
+                            this.theFreshFood.VisibleTime = SnakeFoodModel.defaultVisibleTime;
                             this.theFreshFood.putFoodOnTheMap(this.theSolidSnake.SnakeBodyPieces, this.gameMap);
                             foodList.Clear();
                             foodList.Add(this.theFreshFood);

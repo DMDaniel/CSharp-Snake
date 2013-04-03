@@ -8,7 +8,8 @@ namespace snake1._0._2.Model
     class SnakePiecesModel
     {
         private Point snakePieceLocation;
-
+        public static int defaultSnakeHeight = 12;
+        public static int defaultSnakeWidth = 12;
         public Point SnakePieceLocation
         {
             get { return this.snakePieceLocation; }

@@ -12,7 +12,7 @@ namespace snake1._0._2.Model
         public enum movement { LEFT = 1, DOWN, RIGHT, UP };
         private List<SnakePiecesModel> snakeBodyPieces;
         private movement currentMove = movement.RIGHT;
-        public const int snakePiecesViewSize = 12;
+        public static int snakePiecesViewSize = 12;
 
         public movement CurrentMove
         {
@@ -28,9 +28,16 @@ namespace snake1._0._2.Model
 
         public SnakeModel()
         {
-            SnakePiecesModel snakeSinglePiece = new SnakePiecesModel(60,50);
-            SnakePiecesModel snakeSinglePiece2 = new SnakePiecesModel(50, 50);
-            SnakePiecesModel snakeSinglePiece3 = new SnakePiecesModel(40, 50);
+            Random myRandObj = new Random();
+            int xRandNumber;
+            int yRandNumber;
+            
+            xRandNumber = myRandObj.Next(0, (Map.defaultMapWidth / SnakePiecesModel.defaultSnakeWidth)) + SnakeFoodModel.defaultAppleWidth;
+            yRandNumber = myRandObj.Next(0, (Map.defaultMapHeight / SnakePiecesModel.defaultSnakeHeight)) + SnakeFoodModel.defaultAppleHeight;
+
+            SnakePiecesModel snakeSinglePiece = new SnakePiecesModel(xRandNumber + (2 * SnakePiecesModel.defaultSnakeWidth), yRandNumber);
+            SnakePiecesModel snakeSinglePiece2 = new SnakePiecesModel(xRandNumber + SnakePiecesModel.defaultSnakeWidth, yRandNumber);
+            SnakePiecesModel snakeSinglePiece3 = new SnakePiecesModel(xRandNumber, yRandNumber);
             this.snakeBodyPieces = new List<SnakePiecesModel>();
             this.snakeBodyPieces.Add(snakeSinglePiece);
             this.snakeBodyPieces.Add(snakeSinglePiece2);
