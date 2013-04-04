@@ -31,9 +31,10 @@ namespace snake1._0._2.Model
             Random myRandObj = new Random();
             int xRandNumber;
             int yRandNumber;
+
             
-            xRandNumber = myRandObj.Next(0, (Map.defaultMapWidth / SnakePiecesModel.defaultSnakeWidth)) + SnakeFoodModel.defaultAppleWidth;
-            yRandNumber = myRandObj.Next(0, (Map.defaultMapHeight / SnakePiecesModel.defaultSnakeHeight)) + SnakeFoodModel.defaultAppleHeight;
+            xRandNumber = myRandObj.Next(0, (Map.defaultMapWidth / SnakePiecesModel.defaultSnakeWidth)+ SnakeFoodModel.defaultAppleWidth);
+            yRandNumber = myRandObj.Next(0, (Map.defaultMapHeight / SnakePiecesModel.defaultSnakeHeight)+ SnakeFoodModel.defaultAppleHeight);
 
             SnakePiecesModel snakeSinglePiece = new SnakePiecesModel(xRandNumber + (2 * SnakePiecesModel.defaultSnakeWidth), yRandNumber);
             SnakePiecesModel snakeSinglePiece2 = new SnakePiecesModel(xRandNumber + SnakePiecesModel.defaultSnakeWidth, yRandNumber);
