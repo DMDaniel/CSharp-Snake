@@ -55,6 +55,8 @@ namespace snake1._0._2.View
 
         }
 
+        private delegate void CloseFormControlDelagate(Form formToClose);
+
         private delegate void AddItemControlDelegate(Control ControlToUpdate, SnakePiecesView item);
         private delegate void AddFoodItemControlDelegate(Control ControlToUpdate, FoodView item);
 
@@ -64,6 +66,19 @@ namespace snake1._0._2.View
         //private delegate void RemoveItemControlDelegate(Control ControlToUpdate, SnakePiecesView item);
         private delegate void ClearGameAreaControlDelegate(Control ControlToUpdate);
 
+
+        private void CloseForm(Form formToClose)
+        {
+            if (formToClose.InvokeRequired)
+            {
+                formToClose.Invoke(new CloseFormControlDelagate(CloseForm),
+                    formToClose);
+            }
+            else
+            {
+                formToClose.Close();
+            }
+        }
         private void AddItemListOfViewFood(Control ControlToUpdate, FoodView item)
         {
             if (ControlToUpdate.InvokeRequired)
@@ -227,9 +242,20 @@ namespace snake1._0._2.View
                 //while (!mySyncEvents.ExitThreadEvent.WaitOne())
                 while (!this.formIsClosed)
                 {
+
+                    Thread.Sleep(10);
+
                     List<SnakePiecesModel> items = new List<SnakePiecesModel>();
                     List<SnakeFoodModel> foodItems = new List<SnakeFoodModel>();
 
+                    if (mySyncEvents.SelfBodyEatingEvent.WaitOne(0))
+                    {
+                        MessageBox.Show("YOU LOSE BRO !!!", "Snake Game", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        CloseForm(this);
+                        break;
+                    }
+                    
+                    
                     if (mySyncEvents.NewFoodLocationEvent.WaitOne(0))
                     {
                         lock (((ICollection)queueOfAppleLocation).SyncRoot)

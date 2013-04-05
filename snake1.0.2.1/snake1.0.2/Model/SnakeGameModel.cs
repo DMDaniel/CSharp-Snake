@@ -69,6 +69,7 @@ namespace snake1._0._2.Model
 
                 while (!mySyncEvents.ExitThreadEvent.WaitOne(0))
                 {
+                    Thread.Sleep(10);
 
                     if (mySyncEvents.MouvementChangeEvent.WaitOne(0))
                     {
@@ -84,6 +85,11 @@ namespace snake1._0._2.Model
                         if (DetectEatSelfBody())
                         {
                             mySyncEvents.SelfBodyEatingEvent.Set();
+                        }
+                        if (DetectEatCollision())
+                        {
+                            this.theSolidSnake.growUpTheSnake();
+                            this.theFreshFood.VisibleTime = 0;
                         }
 
 
@@ -105,12 +111,8 @@ namespace snake1._0._2.Model
                             this.theFreshFood.VisibleTime -= 1;
                         }
 
-                        if (DetectEatCollision())
-                        {
-                            this.theSolidSnake.growUpTheSnake();
-                        }
-                        this.theSolidSnake.moveTheSnakeBody(this.theSolidSnake.CurrentMove, this.gameMap);
 
+                        this.theSolidSnake.moveTheSnakeBody(this.theSolidSnake.CurrentMove, this.gameMap);
                         lock (((ICollection)queueOfLocationData).SyncRoot)
                         {
                             queueOfLocationData.Enqueue(this.theSolidSnake.SnakeBodyPieces);
@@ -168,16 +170,14 @@ namespace snake1._0._2.Model
         private Boolean DetectEatSelfBody()
         {
             Boolean result = false;
+            System.Drawing.Point headLocation = this.theSolidSnake.SnakeBodyPieces[0].SnakePieceLocation;
 
-            foreach (SnakePiecesModel pieceX in this.theSolidSnake.SnakeBodyPieces)
+            for(int i=1; i<this.theSolidSnake.SnakeBodyPieces.Count; i++)
             {
-                foreach (SnakePiecesModel pieceY in this.theSolidSnake.SnakeBodyPieces)
+                if (headLocation.Equals(this.theSolidSnake.SnakeBodyPieces[i].SnakePieceLocation))
                 {
-                    if (pieceX.SnakePieceLocation.Equals(pieceY.SnakePieceLocation))
-                    {
-                        result = true;
-                        break;
-                    }
+                    result = true;
+                    break;
                 }
             }
             return result;
