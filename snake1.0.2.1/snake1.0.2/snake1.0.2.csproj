@@ -66,19 +66,25 @@
     <Compile Include="View\FoodView.cs">
       <SubType>Component</SubType>
     </Compile>
-	<Compile Include="View\FoodView.Designer.cs">
+    <Compile Include="View\FoodView.Designer.cs">
       <DependentUpon>FoodView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\RemoteGameUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\RemoteGameUserControl.Designer.cs">
+      <DependentUpon>RemoteGameUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="View\SnakeGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-	<Compile Include="View\SnakeGameForm.Designer.cs">
+    <Compile Include="View\SnakeGameForm.Designer.cs">
       <DependentUpon>SnakeGameForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\SnakePiecesView.cs">
       <SubType>Component</SubType>
     </Compile>
-	<Compile Include="View\SnakePiecesView.Designer.cs">
+    <Compile Include="View\SnakePiecesView.Designer.cs">
       <DependentUpon>SnakePiecesView.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -91,13 +97,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="View\FoodView.resx">
-		<DependentUpon>FoodView.cs</DependentUpon>
+      <DependentUpon>FoodView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\RemoteGameUserControl.resx">
+      <DependentUpon>RemoteGameUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\SnakeGameForm.resx">
-		<DependentUpon>SnakeGameForm.cs</DependentUpon>
+      <DependentUpon>SnakeGameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\SnakePiecesView.resx">
-		<DependentUpon>SnakePiecesView.cs</DependentUpon>
+      <DependentUpon>SnakePiecesView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
