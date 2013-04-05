@@ -14,14 +14,14 @@ namespace snake1._0._2.Model
             _comsumeCollectionEvent = new AutoResetEvent(false);
             _mouvementChangeEvent = new AutoResetEvent(false);
             _newFoodLocationEvent = new AutoResetEvent(false);
-            _foodEatingEvent = new AutoResetEvent(false);
+            _selfBodyEatingEvent = new AutoResetEvent(false);
             _exitThreadEvent = new AutoResetEvent(false);
             _mapSizeChanged = new AutoResetEvent(false);
             _eventArray = new WaitHandle[7];
             _eventArray[0] = _produceCollectionEvent;
             _eventArray[1] = _comsumeCollectionEvent;
             _eventArray[2] = _mouvementChangeEvent;
-            _eventArray[3] = _foodEatingEvent;
+            _eventArray[3] = _selfBodyEatingEvent;
             _eventArray[4] = _newFoodLocationEvent;
             _eventArray[5] = _mapSizeChanged;
             _eventArray[6] = _exitThreadEvent;
@@ -31,9 +31,9 @@ namespace snake1._0._2.Model
         {
             get { return _mapSizeChanged; }
         }
-        public EventWaitHandle FoodEatingEvent
+        public EventWaitHandle SelfBodyEatingEvent
         {
-            get { return _foodEatingEvent; }
+            get { return _selfBodyEatingEvent; }
         }
         public EventWaitHandle NewFoodLocationEvent
         {
@@ -63,7 +63,7 @@ namespace snake1._0._2.Model
         private EventWaitHandle _produceCollectionEvent;
         private EventWaitHandle _comsumeCollectionEvent;
         private EventWaitHandle _mouvementChangeEvent;
-        private EventWaitHandle _foodEatingEvent;
+        private EventWaitHandle _selfBodyEatingEvent;
         private EventWaitHandle _newFoodLocationEvent;
         private EventWaitHandle _mapSizeChanged;
         private EventWaitHandle _exitThreadEvent;

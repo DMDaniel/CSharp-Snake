@@ -9,7 +9,7 @@ namespace snake1._0._2.Model
         private System.Drawing.Point topLeft;
         private System.Drawing.Point bottomRight;
 
-        public static int defaultMapHeight = 400;
+        public static int defaultMapHeight = 396;
         public static int defaultMapWidth = 600;
 
         public System.Drawing.Point TopLeft

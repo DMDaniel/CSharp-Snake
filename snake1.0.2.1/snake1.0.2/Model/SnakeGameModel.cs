@@ -11,6 +11,7 @@ namespace snake1._0._2.Model
     {
         private SnakeModel theSolidSnake;
         private SnakeFoodModel theFreshFood;
+        List<SnakeFoodModel> foodList;
         private Thread runningGameThread;
         private SyncEvents mySyncEvents;
         private Queue<SnakeModel.movement> queueOfMovement;
@@ -43,6 +44,7 @@ namespace snake1._0._2.Model
             this.theSolidSnake = new SnakeModel();
             this.theSolidSnake.CurrentMove = SnakeModel.movement.RIGHT;
             this.theFreshFood = new SnakeFoodModel();
+            this.foodList = new List<SnakeFoodModel>();
             this.gameMap = new Map();
 
             //this.snakeBody = snakeBody;
@@ -62,7 +64,7 @@ namespace snake1._0._2.Model
             try
             {
                 this.theFreshFood.putFoodOnTheMap(this.theSolidSnake.SnakeBodyPieces, this.gameMap);
-                List<SnakeFoodModel> foodList = new List<SnakeFoodModel>();
+                //this.foodList = new List<SnakeFoodModel>();
                 foodList.Add(this.theFreshFood);
 
                 while (!mySyncEvents.ExitThreadEvent.WaitOne(0))
@@ -78,16 +80,13 @@ namespace snake1._0._2.Model
 
                     if (mySyncEvents.ProduceCollectionEvent.WaitOne(0))
                     {
-                       
-                        lock (((ICollection)queueOfLocationData).SyncRoot)
-                        {
 
-                            this.theSolidSnake.moveTheSnakeBody(this.theSolidSnake.CurrentMove, this.gameMap);
-                            queueOfLocationData.Enqueue(this.theSolidSnake.SnakeBodyPieces);
-                            mySyncEvents.ComsumeCollectionEvent.Set();
+                        if (DetectEatSelfBody())
+                        {
+                            mySyncEvents.SelfBodyEatingEvent.Set();
                         }
-                        
-                        
+
+
                         if (this.theFreshFood.VisibleTime.Equals(0))
                         {
                             this.theFreshFood.VisibleTime = SnakeFoodModel.defaultVisibleTime;
@@ -106,17 +105,33 @@ namespace snake1._0._2.Model
                             this.theFreshFood.VisibleTime -= 1;
                         }
 
-                    }
-
-                    if (mySyncEvents.FoodEatingEvent.WaitOne(0))
-                    {
-                        lock (((ICollection)queueOfLocationData).SyncRoot)
+                        if (DetectEatCollision())
                         {
                             this.theSolidSnake.growUpTheSnake();
-                            queueOfLocationData.Enqueue(this.theSolidSnake.SnakeBodyPieces);
-                            //mySyncEvents.ComsumeCollectionEvent.Set();  The comsume event is not fire 
                         }
+                        this.theSolidSnake.moveTheSnakeBody(this.theSolidSnake.CurrentMove, this.gameMap);
+
+                        lock (((ICollection)queueOfLocationData).SyncRoot)
+                        {
+                            queueOfLocationData.Enqueue(this.theSolidSnake.SnakeBodyPieces);
+                            mySyncEvents.ComsumeCollectionEvent.Set();
+                        }
+                        
                     }
+
+
+                    /*****************/
+                    //the eat detection is done in this class
+                    /*****************/
+                    //if (mySyncEvents.FoodEatingEvent.WaitOne(0))
+                    //{
+                    //    lock (((ICollection)queueOfLocationData).SyncRoot)
+                    //    {
+                    //        this.theSolidSnake.growUpTheSnake();
+                    //        queueOfLocationData.Enqueue(this.theSolidSnake.SnakeBodyPieces);
+                    //        //mySyncEvents.ComsumeCollectionEvent.Set();  The comsume event is not fire 
+                    //    }
+                    //}
 
                     if (mySyncEvents.MapSizeChanged.WaitOne(0))
                     {
@@ -138,14 +153,33 @@ namespace snake1._0._2.Model
         {
             Boolean result = false;
             System.Drawing.Point headLocation = this.theSolidSnake.SnakeBodyPieces[0].SnakePieceLocation;
-
-            lock (((ICollection)queueOfAppleLocation).SyncRoot)
+            
+            foreach(SnakeFoodModel food in this.foodList)
             {
-
-
+                if (headLocation.Equals(food.AppleLocation))
+                {
+                    result = true;
+                    break;
+                }
             }
+            return result;
+        }
 
+        private Boolean DetectEatSelfBody()
+        {
+            Boolean result = false;
 
+            foreach (SnakePiecesModel pieceX in this.theSolidSnake.SnakeBodyPieces)
+            {
+                foreach (SnakePiecesModel pieceY in this.theSolidSnake.SnakeBodyPieces)
+                {
+                    if (pieceX.SnakePieceLocation.Equals(pieceY.SnakePieceLocation))
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
             return result;
         }
 
