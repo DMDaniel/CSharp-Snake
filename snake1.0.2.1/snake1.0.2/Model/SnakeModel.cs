@@ -13,6 +13,7 @@ namespace snake1._0._2.Model
         private List<SnakePiecesModel> snakeBodyPieces;
         private movement currentMove = movement.RIGHT;
         public static int snakePiecesViewSize = 12;
+        public static int snakePiecesSpace = 2;
 
         public movement CurrentMove
         {
@@ -29,15 +30,20 @@ namespace snake1._0._2.Model
         public SnakeModel()
         {
             Random myRandObj = new Random();
+            int xTamp;
+            int yTamp;
+
             int xRandNumber;
             int yRandNumber;
 
+            xTamp =  myRandObj.Next(0, ((Map.defaultMapWidth / SnakePiecesModel.defaultSnakeWidth)-1));
+            yTamp =  myRandObj.Next(0, ((Map.defaultMapHeight / SnakePiecesModel.defaultSnakeHeight)-1));
             
-            xRandNumber = myRandObj.Next(0, (Map.defaultMapWidth / SnakePiecesModel.defaultSnakeWidth)+ SnakeFoodModel.defaultAppleWidth);
-            yRandNumber = myRandObj.Next(0, (Map.defaultMapHeight / SnakePiecesModel.defaultSnakeHeight)+ SnakeFoodModel.defaultAppleHeight);
+            xRandNumber = xTamp * SnakeFoodModel.defaultAppleWidth;
+            yRandNumber = yTamp * SnakeFoodModel.defaultAppleHeight;
 
-            SnakePiecesModel snakeSinglePiece = new SnakePiecesModel(xRandNumber + (2 * SnakePiecesModel.defaultSnakeWidth), yRandNumber);
-            SnakePiecesModel snakeSinglePiece2 = new SnakePiecesModel(xRandNumber + SnakePiecesModel.defaultSnakeWidth, yRandNumber);
+            SnakePiecesModel snakeSinglePiece = new SnakePiecesModel(xRandNumber + (2 * (SnakePiecesModel.defaultSnakeWidth + SnakeModel.snakePiecesSpace)), yRandNumber);
+            SnakePiecesModel snakeSinglePiece2 = new SnakePiecesModel(xRandNumber + SnakePiecesModel.defaultSnakeWidth + SnakeModel.snakePiecesSpace, yRandNumber);
             SnakePiecesModel snakeSinglePiece3 = new SnakePiecesModel(xRandNumber, yRandNumber);
             this.snakeBodyPieces = new List<SnakePiecesModel>();
             this.snakeBodyPieces.Add(snakeSinglePiece);

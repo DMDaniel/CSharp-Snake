@@ -9,8 +9,8 @@ namespace snake1._0._2.Model
         private System.Drawing.Point topLeft;
         private System.Drawing.Point bottomRight;
 
-        public static int defaultMapHeight = 600;
-        public static int defaultMapWidth = 400;
+        public static int defaultMapHeight = 400;
+        public static int defaultMapWidth = 600;
 
         public System.Drawing.Point TopLeft
         {
@@ -23,8 +23,8 @@ namespace snake1._0._2.Model
         
         public Map()
         {
-            topLeft = new System.Drawing.Point();
-            bottomRight = new System.Drawing.Point();
+            topLeft = new System.Drawing.Point(0,0);
+            bottomRight = new System.Drawing.Point(defaultMapWidth, defaultMapHeight);
         }
         
         public Map(System.Windows.Forms.Panel FormPanel)

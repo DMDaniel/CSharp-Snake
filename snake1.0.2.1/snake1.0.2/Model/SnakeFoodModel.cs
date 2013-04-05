@@ -74,8 +74,8 @@ namespace snake1._0._2.Model
             int yRandNumber;
             do
             {
-                xRandNumber = myRandObj.Next(0, (gameMap.BottomRight.X / SnakeFoodModel.defaultAppleWidth)) + SnakeFoodModel.defaultAppleWidth;
-                yRandNumber = myRandObj.Next(0, (gameMap.BottomRight.Y / SnakeFoodModel.defaultAppleHeight)) + SnakeFoodModel.defaultAppleHeight;
+                xRandNumber = myRandObj.Next(0, ((gameMap.BottomRight.X / SnakeFoodModel.defaultAppleWidth) - 1)) * SnakeFoodModel.defaultAppleWidth;
+                yRandNumber = myRandObj.Next(0, ((gameMap.BottomRight.Y / SnakeFoodModel.defaultAppleHeight) - 1)) * SnakeFoodModel.defaultAppleHeight;
             } while (!isNotSnakeBodyLocation(snakeBody, xRandNumber, yRandNumber));
 
             this.appleLocation.X = xRandNumber;
@@ -90,7 +90,10 @@ namespace snake1._0._2.Model
                 if (!piece.SnakePieceLocationX.Equals(xRandNumber) && !piece.SnakePieceLocationY.Equals(yRandNumber))
                     result = true;
                 else
+                {
                     result = false;
+                    break;
+                }
             }
             return result;
         }

@@ -130,7 +130,7 @@ namespace snake1._0._2.Model
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(String.Format("An Error occur when running the game:{1}{2}", Environment.NewLine, ex.Message));
+                System.Windows.Forms.MessageBox.Show(String.Format("An Error occur when running the game:{0}{1}", Environment.NewLine, ex.Message));
             }            
         }
 
