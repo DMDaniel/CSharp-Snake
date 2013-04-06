@@ -75,9 +75,10 @@
             // 
             // toolStripStatusLabelCPUdata
             // 
+            this.toolStripStatusLabelCPUdata.AutoSize = false;
             this.toolStripStatusLabelCPUdata.BackColor = System.Drawing.Color.Red;
             this.toolStripStatusLabelCPUdata.Name = "toolStripStatusLabelCPUdata";
-            this.toolStripStatusLabelCPUdata.Size = new System.Drawing.Size(29, 17);
+            this.toolStripStatusLabelCPUdata.Size = new System.Drawing.Size(60, 17);
             this.toolStripStatusLabelCPUdata.Text = "50%";
             // 
             // toolStripStatusLabelDate

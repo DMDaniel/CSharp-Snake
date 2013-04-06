@@ -13,6 +13,7 @@ namespace snake1._0._2.View
 {
     partial class SnakeGameForm : Form
     {
+#region "Attributs"
         private Boolean formIsClosed;
         private SnakeModel.movement currentMove = SnakeModel.movement.RIGHT;
         private List<SnakePiecesView> snakeBody;
@@ -23,8 +24,13 @@ namespace snake1._0._2.View
         private Queue<List<SnakeFoodModel>> queueOfAppleLocation;
         private Queue<System.Windows.Forms.Panel> queueGameMap;
         private Thread updateFormThread;
-        //private Thread observeAreaThread;
+        private SystemInfoProcessor mySysInfoCPU;
 
+        private int snakeMoveFrequency = 20;
+        private int displayCpuCounter = 10;
+#endregion
+
+        //Constructor
         public SnakeGameForm(Queue<SnakeModel.movement> queue, Queue<List<SnakePiecesModel>> queueOfLocationData, Queue<List<SnakeFoodModel>> queueOfAppleLocation,
                             Queue<System.Windows.Forms.Panel> queueGameMap, SyncEvents mySyncEvents)
         {
@@ -40,6 +46,7 @@ namespace snake1._0._2.View
             this.queueOfAppleLocation = queueOfAppleLocation;
             this.queueGameMap = queueGameMap;
             this.mySyncEvents = mySyncEvents;
+            this.mySysInfoCPU = new SystemInfoProcessor();
 
             lock (((ICollection)queueGameMap).SyncRoot)
             {
@@ -54,7 +61,7 @@ namespace snake1._0._2.View
             this.updateFormThread.Start();
 
         }
-
+#region "Delegate"
         private delegate void CloseFormControlDelagate(Form formToClose);
 
         private delegate void AddItemControlDelegate(Control ControlToUpdate, SnakePiecesView item);
@@ -65,8 +72,8 @@ namespace snake1._0._2.View
         private delegate void RemoveItemControlDelegate(Control ControlToUpdate, System.Windows.Forms.Control item);
         //private delegate void RemoveItemControlDelegate(Control ControlToUpdate, SnakePiecesView item);
         private delegate void ClearGameAreaControlDelegate(Control ControlToUpdate);
-
-
+#endregion
+#region "Delegate Invoker Method"
         private void CloseForm(Form formToClose)
         {
             if (formToClose.InvokeRequired)
@@ -148,7 +155,8 @@ namespace snake1._0._2.View
                 ControlToUpdate.Controls.Clear();
             }
         }
-      
+#endregion
+
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
             switch(keyData)
             {
@@ -209,7 +217,26 @@ namespace snake1._0._2.View
 #region "Event Methods"
         private void sequenceGameTimer_Tick(object sender, EventArgs e)
         {
-            this.mySyncEvents.ProduceCollectionEvent.Set();               
+            //if (this.snakeMoveFrequency.Equals(0))
+            //{
+            //    this.snakeMoveFrequency = 20;
+            //    this.mySyncEvents.ProduceCollectionEvent.Set();
+            //}
+            //else
+            //{
+            //    this.snakeMoveFrequency -= 1;
+            //}
+            this.mySyncEvents.ProduceCollectionEvent.Set();
+            if (this.displayCpuCounter.Equals(0))
+            {
+                this.displayCpuCounter = 10;
+                this.mySysInfoCPU.GetCPUusage();
+                this.toolStripStatusLabelCPUdata.Text = String.Format("{0}%", System.Math.Round(this.mySysInfoCPU.CpuUsage));
+            }
+            else
+            {
+                this.displayCpuCounter -= 1;
+            }
         }
 
         private void SnakeGameForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -227,23 +254,14 @@ namespace snake1._0._2.View
         }
 #endregion
  
-        //private void observeAreaProc()
-        //{
-        //    //while (true)
-        //    //{
-
-        //    //}
-        //}
-
         private void updateFormProc()
         {
             try
             {
-                //while (!mySyncEvents.ExitThreadEvent.WaitOne())
                 while (!this.formIsClosed)
                 {
 
-                    Thread.Sleep(10);
+                    Thread.Sleep(10); //In order to let the CPU breathe
 
                     List<SnakePiecesModel> items = new List<SnakePiecesModel>();
                     List<SnakeFoodModel> foodItems = new List<SnakeFoodModel>();
@@ -253,6 +271,11 @@ namespace snake1._0._2.View
                         MessageBox.Show("YOU LOSE BRO !!!", "Snake Game", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         CloseForm(this);
                         break;
+                    }
+
+                    if (mySyncEvents.AppleHaveBeenEatedEvent.WaitOne(0))
+                    {
+                        this.snakeMoveFrequency -= 5;
                     }
                     
                     

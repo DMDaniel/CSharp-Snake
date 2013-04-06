@@ -64,12 +64,11 @@ namespace snake1._0._2.Model
             try
             {
                 this.theFreshFood.putFoodOnTheMap(this.theSolidSnake.SnakeBodyPieces, this.gameMap);
-                //this.foodList = new List<SnakeFoodModel>();
                 foodList.Add(this.theFreshFood);
 
                 while (!mySyncEvents.ExitThreadEvent.WaitOne(0))
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(10); //In order to let the CPU breathe
 
                     if (mySyncEvents.MouvementChangeEvent.WaitOne(0))
                     {
@@ -90,6 +89,7 @@ namespace snake1._0._2.Model
                         {
                             this.theSolidSnake.growUpTheSnake();
                             this.theFreshFood.VisibleTime = 0;
+                            mySyncEvents.AppleHaveBeenEatedEvent.Set();
                         }
 
 
