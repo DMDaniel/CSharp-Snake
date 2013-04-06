@@ -29,6 +29,7 @@ namespace snake1._0._2.Model
 
         public SnakeModel()
         {
+
             Random myRandObj = new Random();
             int xTamp;
             int yTamp;
@@ -39,16 +40,16 @@ namespace snake1._0._2.Model
             xTamp =  myRandObj.Next(0, ((Map.defaultMapWidth / SnakePiecesModel.defaultSnakeWidth)-1));
             yTamp =  myRandObj.Next(0, ((Map.defaultMapHeight / SnakePiecesModel.defaultSnakeHeight)-1));
             
-            xRandNumber = xTamp * SnakeFoodModel.defaultAppleWidth;
-            yRandNumber = yTamp * SnakeFoodModel.defaultAppleHeight;
+            xRandNumber = xTamp * SnakePiecesModel.defaultSnakeWidth;
+            yRandNumber = yTamp * SnakePiecesModel.defaultSnakeHeight;
 
             SnakePiecesModel snakeSinglePiece = new SnakePiecesModel(xRandNumber + (2 * (SnakePiecesModel.defaultSnakeWidth + SnakeModel.snakePiecesSpace)), yRandNumber);
             SnakePiecesModel snakeSinglePiece2 = new SnakePiecesModel(xRandNumber + SnakePiecesModel.defaultSnakeWidth + SnakeModel.snakePiecesSpace, yRandNumber);
             SnakePiecesModel snakeSinglePiece3 = new SnakePiecesModel(xRandNumber, yRandNumber);
             this.snakeBodyPieces = new List<SnakePiecesModel>();
-            this.snakeBodyPieces.Add(snakeSinglePiece);
-            this.snakeBodyPieces.Add(snakeSinglePiece2);
             this.snakeBodyPieces.Add(snakeSinglePiece3);
+            this.snakeBodyPieces.Add(snakeSinglePiece2);
+            this.snakeBodyPieces.Add(snakeSinglePiece);
         }
 
         public void growUpTheSnake()
