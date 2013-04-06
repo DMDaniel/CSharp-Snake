@@ -231,7 +231,9 @@ namespace snake1._0._2.View
             {
                 this.displayCpuCounter = 10;
                 this.mySysInfoCPU.GetCPUusage();
+                this.mySysInfoCPU.GetSysDateAndTime();
                 this.toolStripStatusLabelCPUdata.Text = String.Format("{0}%", System.Math.Round(this.mySysInfoCPU.CpuUsage));
+                this.toolStripStatusLabelDATEdata.Text = String.Format("{0} {1}", this.mySysInfoCPU.SysDate, this.mySysInfoCPU.SysTime);
             }
             else
             {

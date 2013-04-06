@@ -7,24 +7,62 @@ namespace snake1._0._2.Model
 {
     class SystemInfoProcessor
     {
-        //// Import the SYSTEM_POWER_STATUS definition
-        //[StructLayout(LayoutKind.Sequential)]
-        //struct SYSTEM_POWER_STATUS
-        //{
 
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern bool GetSystemTimes(out System.Runtime.InteropServices.ComTypes.FILETIME lpIdleTime, out  System.Runtime.InteropServices.ComTypes.FILETIME lpKernelTime, out  System.Runtime.InteropServices.ComTypes.FILETIME lpUserTime);
+
+        [DllImport("Kernel32.dll", SetLastError = true)]
+        static extern void GetLocalTime(ref SYSTEM_TIME systemTimeStruct);
+
+        public SystemInfoProcessor()
+        {
+            this.cpuUsage = 0;
+            this.sysDate = String.Empty;
+            this.sysTime = String.Empty;
+        }
+
+#region "System Date & Time section"
+        //// Import the SYSTEM_TIME definition
+        [StructLayout(LayoutKind.Sequential)]
+        struct SYSTEM_TIME
+        {
+            public ushort year;
+            public ushort month;
+            public ushort weekday;
+            public ushort day;
+            public ushort hour;
+            public ushort minute;
+            public ushort second;
+            public ushort millisecond;
+        };
+
+        private string sysDate;
+        private string sysTime;
+
+        public string SysDate
+        {
+            get { return this.sysDate; }
+        }
+        public string SysTime
+        {
+            get { return this.sysTime; }
+        }
+
+        public void GetSysDateAndTime()
+        {
+            SYSTEM_TIME systemTimeStruct = new SYSTEM_TIME();
+            GetLocalTime(ref systemTimeStruct);
+            this.sysDate = String.Format("{0:D2}/{1:D2}/{2}", systemTimeStruct.day, systemTimeStruct.month, systemTimeStruct.year);
+            this.sysTime = String.Format("{0:D2}:{1:D2}", systemTimeStruct.hour, systemTimeStruct.minute);
+        }
+#endregion
+#region "CPU Usage Section"
 
         private TimeSpan sysIdleOldTs;
         private TimeSpan sysKernelOldTs;
         private TimeSpan sysUserOldTs;
 
         private Double cpuUsage;
-
-        public SystemInfoProcessor()
-        {
-            this.cpuUsage = 0;
-        }
 
         public Double CpuUsage
         {
@@ -71,5 +109,6 @@ namespace snake1._0._2.Model
         {
             return TimeSpan.FromMilliseconds((((ulong)time.dwHighDateTime << 32) + (uint)time.dwLowDateTime) * 0.000001);
         }
+#endregion
     }
 }

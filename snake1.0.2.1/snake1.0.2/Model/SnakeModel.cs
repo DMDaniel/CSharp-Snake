@@ -29,7 +29,6 @@ namespace snake1._0._2.Model
 
         public SnakeModel()
         {
-
             Random myRandObj = new Random();
             int xTamp;
             int yTamp;
