@@ -37,7 +37,7 @@
             this.BackColor = System.Drawing.Color.Gray;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Name = "RemoteGameUserControl";
-            this.Size = new System.Drawing.Size(298, 190);
+            this.Size = new System.Drawing.Size(300, 192);
             this.ResumeLayout(false);
 
         }

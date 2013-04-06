@@ -29,13 +29,13 @@ namespace snake1._0._2.Model
         
         public Map(System.Windows.Forms.Panel FormPanel)
         {
-            topLeft = new System.Drawing.Point(FormPanel.Bounds.X,FormPanel.Bounds.Y);
+            topLeft = new System.Drawing.Point(0,0);
             bottomRight = new System.Drawing.Point(FormPanel.Bounds.X + FormPanel.Bounds.Width, FormPanel.Bounds.Y + FormPanel.Bounds.Height);
         }
 
         public void UpdateMap(System.Windows.Forms.Panel FormPanel)
         {
-            topLeft =  new System.Drawing.Point(FormPanel.Bounds.X,FormPanel.Bounds.Y);
+            topLeft =  new System.Drawing.Point(0,0);
             bottomRight = new System.Drawing.Point(FormPanel.Bounds.X + FormPanel.Bounds.Width, FormPanel.Bounds.Y + FormPanel.Bounds.Height);
         }
     }

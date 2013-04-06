@@ -119,46 +119,63 @@ namespace snake1._0._2.Model
             switch (moveTo)
             {
                 case movement.LEFT:
-                    if (this.snakeBodyPieces[0].SnakePieceLocationX <= gameMap.TopLeft.X)
-                    {
-                        this.snakeBodyPieces[0].SnakePieceLocationX = gameMap.BottomRight.X;
-                    }
-                    else{
-                        this.snakeBodyPieces[0].SnakePieceLocationX -= snakePiecesViewSize;
-                    }
+                    //for (int i = SnakePiecesModel.defaultSnakeHeight; i>=0; i--)
+                    //{
+                        //if ((this.snakeBodyPieces[0].SnakePieceLocationX +i) <= gameMap.TopLeft.X)
+                        if ((this.snakeBodyPieces[0].SnakePieceLocationX) <= gameMap.TopLeft.X)
+                        {
+                            this.snakeBodyPieces[0].SnakePieceLocationX = gameMap.BottomRight.X;
+                        }
+                        else
+                        {
+                            this.snakeBodyPieces[0].SnakePieceLocationX -= snakePiecesViewSize;
+                        }
+                    //}
                     break;
 
                 case movement.DOWN:
-                    if (this.snakeBodyPieces[0].SnakePieceLocationY >= gameMap.BottomRight.Y)
-                    {
-                        this.snakeBodyPieces[0].SnakePieceLocationY = gameMap.TopLeft.Y;
-                    }
-                    else
-                    {
-                        this.snakeBodyPieces[0].SnakePieceLocationY += snakePiecesViewSize;
-                    }
+                    //for (int i = SnakePiecesModel.defaultSnakeHeight; i >=0; i--)
+                    //{
+                    //    if ((this.snakeBodyPieces[0].SnakePieceLocationY + i)>= gameMap.BottomRight.Y)
+                        if ((this.snakeBodyPieces[0].SnakePieceLocationY) >= gameMap.BottomRight.Y)
+                        {
+                            this.snakeBodyPieces[0].SnakePieceLocationY = gameMap.TopLeft.Y;
+                        }
+                        else
+                        {
+                            this.snakeBodyPieces[0].SnakePieceLocationY += snakePiecesViewSize;
+                        }
+                    //}
                     break;
 
                 case movement.RIGHT:
-                    if (this.snakeBodyPieces[0].SnakePieceLocationX >= gameMap.BottomRight.X)
-                    {
-                        this.snakeBodyPieces[0].SnakePieceLocationX = gameMap.TopLeft.X;
-                    }
-                    else
-                    {
-                        this.snakeBodyPieces[0].SnakePieceLocationX += snakePiecesViewSize;
-                    }
+                    //for (int i = SnakePiecesModel.defaultSnakeHeight; i >= 0; i--)
+                    //{
+                        //if ((this.snakeBodyPieces[0].SnakePieceLocationX + i) >= gameMap.BottomRight.X)
+                        if ((this.snakeBodyPieces[0].SnakePieceLocationX) >= gameMap.BottomRight.X)
+                        {
+                            this.snakeBodyPieces[0].SnakePieceLocationX = gameMap.TopLeft.X;
+                        }
+                        else
+                        {
+                            this.snakeBodyPieces[0].SnakePieceLocationX += snakePiecesViewSize;
+                        }
+                    //}
                     break;
 
                 case movement.UP:
-                    if (this.snakeBodyPieces[0].SnakePieceLocationY <= gameMap.TopLeft.Y)
-                    {
-                        this.snakeBodyPieces[0].SnakePieceLocationY = gameMap.BottomRight.Y;
-                    }
-                    else
-                    {
-                        this.snakeBodyPieces[0].SnakePieceLocationY -= snakePiecesViewSize;
-                    }
+                    //for (int i = SnakePiecesModel.defaultSnakeHeight; i>=0; i--)
+                    //{
+                        //if ((this.snakeBodyPieces[0].SnakePieceLocationY +i) <= gameMap.TopLeft.Y)
+                        if ((this.snakeBodyPieces[0].SnakePieceLocationY) <= gameMap.TopLeft.Y)
+                        {
+                            this.snakeBodyPieces[0].SnakePieceLocationY = gameMap.BottomRight.Y;
+                        }
+                        else
+                        {
+                            this.snakeBodyPieces[0].SnakePieceLocationY -= snakePiecesViewSize;
+                        }
+                    //}
                     break;
 
                 default:

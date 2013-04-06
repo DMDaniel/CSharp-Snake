@@ -36,7 +36,17 @@
             this.toolStripStatusLabelCPUdata = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelDate = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelDATEdata = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panelBackground = new System.Windows.Forms.Panel();
+            this.groupBoxRemoteGame = new System.Windows.Forms.GroupBox();
+            this.groupBoxPlayerGame = new System.Windows.Forms.GroupBox();
+            this.menuStripSnakeGame = new System.Windows.Forms.MenuStrip();
+            this.scoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
+            this.panelBackground.SuspendLayout();
+            this.groupBoxPlayerGame.SuspendLayout();
+            this.menuStripSnakeGame.SuspendLayout();
             this.SuspendLayout();
             // 
             // sequenceGameTimer
@@ -48,7 +58,8 @@
             // 
             this.GamePanel.BackColor = System.Drawing.Color.Black;
             this.GamePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GamePanel.Location = new System.Drawing.Point(0, 0);
+            this.GamePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GamePanel.Location = new System.Drawing.Point(3, 16);
             this.GamePanel.Name = "GamePanel";
             this.GamePanel.Size = new System.Drawing.Size(600, 396);
             this.GamePanel.TabIndex = 0;
@@ -60,9 +71,9 @@
             this.toolStripStatusLabelCPUdata,
             this.toolStripStatusLabelDate,
             this.toolStripStatusLabelDATEdata});
-            this.statusStrip.Location = new System.Drawing.Point(0, 399);
+            this.statusStrip.Location = new System.Drawing.Point(0, 455);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(868, 22);
+            this.statusStrip.Size = new System.Drawing.Size(932, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -95,13 +106,79 @@
             this.toolStripStatusLabelDATEdata.Size = new System.Drawing.Size(83, 17);
             this.toolStripStatusLabelDATEdata.Text = "01/04/13 14:01";
             // 
+            // panelBackground
+            // 
+            this.panelBackground.AutoSize = true;
+            this.panelBackground.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelBackground.Controls.Add(this.groupBoxRemoteGame);
+            this.panelBackground.Controls.Add(this.groupBoxPlayerGame);
+            this.panelBackground.Controls.Add(this.menuStripSnakeGame);
+            this.panelBackground.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelBackground.Location = new System.Drawing.Point(0, 0);
+            this.panelBackground.Name = "panelBackground";
+            this.panelBackground.Size = new System.Drawing.Size(932, 454);
+            this.panelBackground.TabIndex = 2;
+            // 
+            // groupBoxRemoteGame
+            // 
+            this.groupBoxRemoteGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxRemoteGame.Location = new System.Drawing.Point(612, 258);
+            this.groupBoxRemoteGame.Name = "groupBoxRemoteGame";
+            this.groupBoxRemoteGame.Size = new System.Drawing.Size(300, 192);
+            this.groupBoxRemoteGame.TabIndex = 2;
+            this.groupBoxRemoteGame.TabStop = false;
+            this.groupBoxRemoteGame.Text = "Remote Game";
+            // 
+            // groupBoxPlayerGame
+            // 
+            this.groupBoxPlayerGame.Controls.Add(this.GamePanel);
+            this.groupBoxPlayerGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxPlayerGame.Location = new System.Drawing.Point(3, 36);
+            this.groupBoxPlayerGame.Name = "groupBoxPlayerGame";
+            this.groupBoxPlayerGame.Size = new System.Drawing.Size(606, 415);
+            this.groupBoxPlayerGame.TabIndex = 0;
+            this.groupBoxPlayerGame.TabStop = false;
+            this.groupBoxPlayerGame.Text = "Player Game";
+            // 
+            // menuStripSnakeGame
+            // 
+            this.menuStripSnakeGame.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scoreToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.menuStripSnakeGame.Location = new System.Drawing.Point(0, 0);
+            this.menuStripSnakeGame.Name = "menuStripSnakeGame";
+            this.menuStripSnakeGame.Size = new System.Drawing.Size(932, 24);
+            this.menuStripSnakeGame.TabIndex = 1;
+            this.menuStripSnakeGame.Text = "menuStripSnakeGame";
+            // 
+            // scoreToolStripMenuItem
+            // 
+            this.scoreToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem});
+            this.scoreToolStripMenuItem.Name = "scoreToolStripMenuItem";
+            this.scoreToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.scoreToolStripMenuItem.Text = "Score";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
             // SnakeGameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(868, 421);
+            this.ClientSize = new System.Drawing.Size(932, 477);
             this.Controls.Add(this.statusStrip);
-            this.Controls.Add(this.GamePanel);
+            this.Controls.Add(this.panelBackground);
+            this.MainMenuStrip = this.menuStripSnakeGame;
             this.Name = "SnakeGameForm";
             this.ShowIcon = false;
             this.Text = "SnakeGame";
@@ -109,6 +186,11 @@
             this.Resize += new System.EventHandler(this.SnakeGameForm_Resize);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.panelBackground.ResumeLayout(false);
+            this.panelBackground.PerformLayout();
+            this.groupBoxPlayerGame.ResumeLayout(false);
+            this.menuStripSnakeGame.ResumeLayout(false);
+            this.menuStripSnakeGame.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,6 +205,13 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelCPUdata;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelDate;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelDATEdata;
+        private System.Windows.Forms.Panel panelBackground;
+        private System.Windows.Forms.GroupBox groupBoxPlayerGame;
+        private System.Windows.Forms.MenuStrip menuStripSnakeGame;
+        private System.Windows.Forms.GroupBox groupBoxRemoteGame;
+        private System.Windows.Forms.ToolStripMenuItem scoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 
