@@ -56,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controler\Program.cs" />
+    <Compile Include="Model\DataReceiver.cs" />
+    <Compile Include="Model\DataSender.cs" />
     <Compile Include="Model\Map.cs" />
     <Compile Include="Model\SnakeFoodModel.cs" />
     <Compile Include="Model\SnakeGameModel.cs" />
