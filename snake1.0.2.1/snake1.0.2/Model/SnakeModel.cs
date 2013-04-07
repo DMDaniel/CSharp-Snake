@@ -11,7 +11,7 @@ namespace snake1._0._2.Model
     {
         public enum movement { LEFT = 1, DOWN, RIGHT, UP };
         private List<SnakePiecesModel> snakeBodyPieces;
-        private movement currentMove = movement.RIGHT;
+        private movement currentMove = movement.LEFT;
         public static int snakePiecesViewSize = 12;
         public static int snakePiecesSpace = 2;
 
@@ -42,8 +42,8 @@ namespace snake1._0._2.Model
             xRandNumber = xTamp * SnakePiecesModel.defaultSnakeWidth;
             yRandNumber = yTamp * SnakePiecesModel.defaultSnakeHeight;
 
-            SnakePiecesModel snakeSinglePiece = new SnakePiecesModel(xRandNumber + (2 * (SnakePiecesModel.defaultSnakeWidth + SnakeModel.snakePiecesSpace)), yRandNumber);
-            SnakePiecesModel snakeSinglePiece2 = new SnakePiecesModel(xRandNumber + SnakePiecesModel.defaultSnakeWidth + SnakeModel.snakePiecesSpace, yRandNumber);
+            SnakePiecesModel snakeSinglePiece = new SnakePiecesModel((xRandNumber + (2 * (SnakePiecesModel.defaultSnakeWidth + SnakeModel.snakePiecesSpace))), yRandNumber);
+            SnakePiecesModel snakeSinglePiece2 = new SnakePiecesModel((xRandNumber + SnakePiecesModel.defaultSnakeWidth + SnakeModel.snakePiecesSpace), yRandNumber);
             SnakePiecesModel snakeSinglePiece3 = new SnakePiecesModel(xRandNumber, yRandNumber);
             this.snakeBodyPieces = new List<SnakePiecesModel>();
             this.snakeBodyPieces.Add(snakeSinglePiece3);
@@ -122,9 +122,11 @@ namespace snake1._0._2.Model
                     //for (int i = SnakePiecesModel.defaultSnakeHeight; i>=0; i--)
                     //{
                         //if ((this.snakeBodyPieces[0].SnakePieceLocationX +i) <= gameMap.TopLeft.X)
+                        //if ((this.snakeBodyPieces[0].SnakePieceLocationX) <= gameMap.TopLeft.X)
                         if ((this.snakeBodyPieces[0].SnakePieceLocationX) <= gameMap.TopLeft.X)
                         {
-                            this.snakeBodyPieces[0].SnakePieceLocationX = gameMap.BottomRight.X;
+                            //this.snakeBodyPieces[0].SnakePieceLocationX = gameMap.BottomRight.X;
+                            this.snakeBodyPieces[0].SnakePieceLocationX = ((gameMap.BottomRight.X / SnakePiecesModel.defaultSnakeWidth) - 1) * SnakePiecesModel.defaultSnakeWidth;
                         }
                         else
                         {
@@ -137,7 +139,8 @@ namespace snake1._0._2.Model
                     //for (int i = SnakePiecesModel.defaultSnakeHeight; i >=0; i--)
                     //{
                     //    if ((this.snakeBodyPieces[0].SnakePieceLocationY + i)>= gameMap.BottomRight.Y)
-                        if ((this.snakeBodyPieces[0].SnakePieceLocationY) >= gameMap.BottomRight.Y)
+                        //if ((this.snakeBodyPieces[0].SnakePieceLocationY) >= gameMap.BottomRight.Y)
+                        if ((this.snakeBodyPieces[0].SnakePieceLocationY +12 )>= gameMap.BottomRight.Y)    
                         {
                             this.snakeBodyPieces[0].SnakePieceLocationY = gameMap.TopLeft.Y;
                         }
@@ -152,7 +155,8 @@ namespace snake1._0._2.Model
                     //for (int i = SnakePiecesModel.defaultSnakeHeight; i >= 0; i--)
                     //{
                         //if ((this.snakeBodyPieces[0].SnakePieceLocationX + i) >= gameMap.BottomRight.X)
-                        if ((this.snakeBodyPieces[0].SnakePieceLocationX) >= gameMap.BottomRight.X)
+                        //if ((this.snakeBodyPieces[0].SnakePieceLocationX) >= gameMap.BottomRight.X)
+                        if ((this.snakeBodyPieces[0].SnakePieceLocationX +12) >= gameMap.BottomRight.X)
                         {
                             this.snakeBodyPieces[0].SnakePieceLocationX = gameMap.TopLeft.X;
                         }
@@ -167,9 +171,11 @@ namespace snake1._0._2.Model
                     //for (int i = SnakePiecesModel.defaultSnakeHeight; i>=0; i--)
                     //{
                         //if ((this.snakeBodyPieces[0].SnakePieceLocationY +i) <= gameMap.TopLeft.Y)
+                        //if ((this.snakeBodyPieces[0].SnakePieceLocationY) <= gameMap.TopLeft.Y)
                         if ((this.snakeBodyPieces[0].SnakePieceLocationY) <= gameMap.TopLeft.Y)
                         {
-                            this.snakeBodyPieces[0].SnakePieceLocationY = gameMap.BottomRight.Y;
+                            //this.snakeBodyPieces[0].SnakePieceLocationY = gameMap.BottomRight.Y;
+                            this.snakeBodyPieces[0].SnakePieceLocationY = ((gameMap.BottomRight.Y / SnakePiecesModel.defaultSnakeWidth) - 1) * SnakePiecesModel.defaultSnakeWidth;
                         }
                         else
                         {

@@ -15,7 +15,7 @@ namespace snake1._0._2.View
     {
 #region "Attributs"
         private Boolean formIsClosed;
-        private SnakeModel.movement currentMove = SnakeModel.movement.RIGHT;
+        private SnakeModel.movement currentMove = SnakeModel.movement.LEFT;
         private List<SnakePiecesView> snakeBody;
         private List<FoodView> foodList;
         private SyncEvents mySyncEvents;
@@ -25,6 +25,8 @@ namespace snake1._0._2.View
         private Queue<System.Windows.Forms.Panel> queueGameMap;
         private Thread updateFormThread;
         private SystemInfoProcessor mySysInfoCPU;
+
+        private RemoteGameUserControl remoteGamePanel;
 
         private int snakeMoveFrequency = 20;
         private int displayCpuCounter = 10;
@@ -36,6 +38,10 @@ namespace snake1._0._2.View
         {
             InitializeComponent();
 
+            this.remoteGamePanel = new RemoteGameUserControl();
+            this.remoteGamePanel.Dock = DockStyle.Fill;
+            this.groupBoxRemoteGame.Controls.Add(this.remoteGamePanel);
+            
 
             this.formIsClosed = false;
 

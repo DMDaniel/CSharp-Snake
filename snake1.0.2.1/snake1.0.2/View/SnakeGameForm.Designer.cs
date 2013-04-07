@@ -73,7 +73,7 @@
             this.toolStripStatusLabelDATEdata});
             this.statusStrip.Location = new System.Drawing.Point(0, 455);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(932, 22);
+            this.statusStrip.Size = new System.Drawing.Size(974, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -116,15 +116,15 @@
             this.panelBackground.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelBackground.Location = new System.Drawing.Point(0, 0);
             this.panelBackground.Name = "panelBackground";
-            this.panelBackground.Size = new System.Drawing.Size(932, 454);
+            this.panelBackground.Size = new System.Drawing.Size(974, 454);
             this.panelBackground.TabIndex = 2;
             // 
             // groupBoxRemoteGame
             // 
             this.groupBoxRemoteGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxRemoteGame.Location = new System.Drawing.Point(612, 258);
+            this.groupBoxRemoteGame.Location = new System.Drawing.Point(612, 241);
             this.groupBoxRemoteGame.Name = "groupBoxRemoteGame";
-            this.groupBoxRemoteGame.Size = new System.Drawing.Size(300, 192);
+            this.groupBoxRemoteGame.Size = new System.Drawing.Size(350, 210);
             this.groupBoxRemoteGame.TabIndex = 2;
             this.groupBoxRemoteGame.TabStop = false;
             this.groupBoxRemoteGame.Text = "Remote Game";
@@ -147,7 +147,7 @@
             this.aboutToolStripMenuItem});
             this.menuStripSnakeGame.Location = new System.Drawing.Point(0, 0);
             this.menuStripSnakeGame.Name = "menuStripSnakeGame";
-            this.menuStripSnakeGame.Size = new System.Drawing.Size(932, 24);
+            this.menuStripSnakeGame.Size = new System.Drawing.Size(974, 24);
             this.menuStripSnakeGame.TabIndex = 1;
             this.menuStripSnakeGame.Text = "menuStripSnakeGame";
             // 
@@ -175,7 +175,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(932, 477);
+            this.ClientSize = new System.Drawing.Size(974, 477);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.panelBackground);
             this.MainMenuStrip = this.menuStripSnakeGame;

@@ -42,7 +42,7 @@ namespace snake1._0._2.Model
             Queue<System.Windows.Forms.Panel> queueGameMap, SyncEvents mySyncEvents)
         {
             this.theSolidSnake = new SnakeModel();
-            this.theSolidSnake.CurrentMove = SnakeModel.movement.RIGHT;
+            this.theSolidSnake.CurrentMove = SnakeModel.movement.LEFT;
             this.theFreshFood = new SnakeFoodModel();
             this.foodList = new List<SnakeFoodModel>();
             this.gameMap = new Map();
@@ -158,11 +158,15 @@ namespace snake1._0._2.Model
             
             foreach(SnakeFoodModel food in this.foodList)
             {
-                if (headLocation.Equals(food.AppleLocation))
-                {
-                    result = true;
-                    break;
-                }
+                //for (int i = SnakePiecesModel.defaultSnakeWidth; i >= 0; i--)
+                //{
+
+                    if (headLocation.Equals(food.AppleLocation))
+                    {
+                        result = true;
+                        break;
+                    }
+                //}
             }
             return result;
         }
