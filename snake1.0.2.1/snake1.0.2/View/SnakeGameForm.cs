@@ -30,6 +30,8 @@ namespace snake1._0._2.View
 
         private int snakeMoveFrequency = 20;
         private int displayCpuCounter = 10;
+
+        private Boolean lockMove = true;
 #endregion
 
         //Constructor
@@ -164,60 +166,65 @@ namespace snake1._0._2.View
 #endregion
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
-            switch(keyData)
+            if (this.lockMove == true)
             {
-                case Keys.Left:
-                    if (this.currentMove != SnakeModel.movement.RIGHT)
-                    {
-                        lock (((ICollection)queueOfMovement).SyncRoot)
+                switch (keyData)
+                {
+                    case Keys.Left:
+                        if (this.currentMove != SnakeModel.movement.RIGHT)
                         {
-                            queueOfMovement.Enqueue(SnakeModel.movement.LEFT);
-                            mySyncEvents.MouvementChangeEvent.Set();
+                            lock (((ICollection)queueOfMovement).SyncRoot)
+                            {
+                                queueOfMovement.Enqueue(SnakeModel.movement.LEFT);
+                                mySyncEvents.MouvementChangeEvent.Set();
+                            }
+                            this.currentMove = SnakeModel.movement.LEFT;
                         }
-                        this.currentMove = SnakeModel.movement.LEFT;
-                    }
-                    //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.LEFT;
-                    break;
-                case Keys.Right:
-                    if (this.currentMove != SnakeModel.movement.LEFT)
-                    {
-                        lock (((ICollection)queueOfMovement).SyncRoot)
+                        //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.LEFT;
+                        break;
+                    case Keys.Right:
+                        if (this.currentMove != SnakeModel.movement.LEFT)
                         {
-                            queueOfMovement.Enqueue(SnakeModel.movement.RIGHT);
-                            mySyncEvents.MouvementChangeEvent.Set();
+                            lock (((ICollection)queueOfMovement).SyncRoot)
+                            {
+                                queueOfMovement.Enqueue(SnakeModel.movement.RIGHT);
+                                mySyncEvents.MouvementChangeEvent.Set();
+                            }
+                            this.currentMove = SnakeModel.movement.RIGHT;
                         }
-                        this.currentMove = SnakeModel.movement.RIGHT;
-                    }
-                    //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.RIGHT;
-                    break;
-                case Keys.Up:
-                    if (this.currentMove != SnakeModel.movement.DOWN)
-                    {
-                        lock (((ICollection)queueOfMovement).SyncRoot)
+                        //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.RIGHT;
+                        break;
+                    case Keys.Up:
+                        if (this.currentMove != SnakeModel.movement.DOWN)
                         {
-                            queueOfMovement.Enqueue(SnakeModel.movement.UP);
-                            mySyncEvents.MouvementChangeEvent.Set();
+                            lock (((ICollection)queueOfMovement).SyncRoot)
+                            {
+                                queueOfMovement.Enqueue(SnakeModel.movement.UP);
+                                mySyncEvents.MouvementChangeEvent.Set();
+                            }
+                            this.currentMove = SnakeModel.movement.UP;
                         }
-                        this.currentMove = SnakeModel.movement.UP;
-                    }
-                    //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.UP;
-                    break;
-                case Keys.Down:
-                    if (this.currentMove != SnakeModel.movement.UP)
-                    {
-                        lock (((ICollection)queueOfMovement).SyncRoot)
+                        //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.UP;
+                        break;
+                    case Keys.Down:
+                        if (this.currentMove != SnakeModel.movement.UP)
                         {
-                            queueOfMovement.Enqueue(SnakeModel.movement.DOWN);
-                            mySyncEvents.MouvementChangeEvent.Set();
+                            lock (((ICollection)queueOfMovement).SyncRoot)
+                            {
+                                queueOfMovement.Enqueue(SnakeModel.movement.DOWN);
+                                mySyncEvents.MouvementChangeEvent.Set();
+                            }
+                            this.currentMove = SnakeModel.movement.DOWN;
                         }
-                        this.currentMove = SnakeModel.movement.DOWN;
-                    }
-                    //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.DOWN;
-                    break;
-                default:
-                    break;
+                        //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.DOWN;
+                        break;
+                    default:
+                        break;
+                }
+                this.lockMove = false;
             }
             return base.ProcessCmdKey(ref msg, keyData);
+            
         }
 
 #region "Event Methods"
@@ -245,6 +252,8 @@ namespace snake1._0._2.View
             {
                 this.displayCpuCounter -= 1;
             }
+
+            this.lockMove = true;
         }
 
         private void SnakeGameForm_FormClosed(object sender, FormClosedEventArgs e)
