@@ -56,13 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controler\Program.cs" />
-    <Compile Include="Model\DataReceiver.cs" />
-    <Compile Include="Model\DataSender.cs" />
     <Compile Include="Model\Map.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\SnakeFoodModel.cs" />
     <Compile Include="Model\SnakeGameModel.cs" />
     <Compile Include="Model\SnakeModel.cs" />
+    <Compile Include="Model\SnakeNet.cs" />
+    <Compile Include="Model\SnakeNetPacket.cs" />
     <Compile Include="Model\SnakePiecesModel.cs" />
     <Compile Include="Model\SyncEvents.cs" />
     <Compile Include="Model\SystemInfoProcessor.cs" />
