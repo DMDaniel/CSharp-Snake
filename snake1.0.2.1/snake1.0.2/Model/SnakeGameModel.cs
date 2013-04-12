@@ -18,6 +18,8 @@ namespace snake1._0._2.Model
         private Queue<List<SnakePiecesModel>> queueOfLocationData;
         private Queue<List<SnakeFoodModel>> queueOfAppleLocation;
         private Queue<System.Windows.Forms.Panel> queueGameMap;
+        private Queue<Player> thePlayerQueue;
+        private Player thePlayer;
         private Map gameMap;
     
         public SnakeModel TheSolidSnake
@@ -39,12 +41,12 @@ namespace snake1._0._2.Model
         }
 
         public SnakeGameModel(Queue<SnakeModel.movement> queueOfMovement, Queue<List<SnakePiecesModel>> queueOfLocationData, Queue<List<SnakeFoodModel>> queueOfAppleLocation,
-            Queue<System.Windows.Forms.Panel> queueGameMap, SyncEvents mySyncEvents)
+            Queue<System.Windows.Forms.Panel> queueGameMap, Queue<Player> thePlayerQueue, SyncEvents mySyncEvents)
         {
             this.theSolidSnake = new SnakeModel();
             this.theSolidSnake.CurrentMove = SnakeModel.movement.LEFT;
             this.theFreshFood = new SnakeFoodModel();
-            this.foodList = new List<SnakeFoodModel>();
+            this.foodList = new List<SnakeFoodModel>();;
             this.gameMap = new Map();
 
             //this.snakeBody = snakeBody;
@@ -52,6 +54,13 @@ namespace snake1._0._2.Model
             this.queueOfLocationData = queueOfLocationData;
             this.queueOfAppleLocation = queueOfAppleLocation;
             this.queueGameMap = queueGameMap;
+
+            this.thePlayerQueue = thePlayerQueue;
+            lock (((ICollection)thePlayerQueue).SyncRoot)
+            {
+                this.thePlayer = this.thePlayerQueue.Dequeue();
+            }
+
             this.mySyncEvents = mySyncEvents;
             //this.myLaunchWorkEvent = new EventWaitHandle(false, EventResetMode.AutoReset);
             //this.myStopWorkEvent = new EventWaitHandle(false, EventResetMode.AutoReset);
@@ -89,7 +98,17 @@ namespace snake1._0._2.Model
                         {
                             this.theSolidSnake.growUpTheSnake();
                             this.theFreshFood.VisibleTime = 0;
+                            this.thePlayer.Score += 5;
+                            if(this.thePlayer.Score % 25 == 0)
+                            {
+                                this.thePlayer.Score += 10;
+                            }
+                            lock (((ICollection)thePlayerQueue).SyncRoot)
+                            {
+                                this.thePlayerQueue.Enqueue(this.thePlayer);
+                            }
                             mySyncEvents.AppleHaveBeenEatedEvent.Set();
+
                         }
 
 

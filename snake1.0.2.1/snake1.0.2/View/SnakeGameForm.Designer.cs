@@ -44,6 +44,8 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.theTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripStatusLabelScore = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelScoreDATA = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip.SuspendLayout();
             this.panelBackground.SuspendLayout();
             this.groupBoxPlayerGame.SuspendLayout();
@@ -71,7 +73,9 @@
             this.toolStripStatusLabelCPU,
             this.toolStripStatusLabelCPUdata,
             this.toolStripStatusLabelDate,
-            this.toolStripStatusLabelDATEdata});
+            this.toolStripStatusLabelDATEdata,
+            this.toolStripStatusLabelScore,
+            this.toolStripStatusLabelScoreDATA});
             this.statusStrip.Location = new System.Drawing.Point(0, 455);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(974, 22);
@@ -177,9 +181,24 @@
             // theTeamToolStripMenuItem
             // 
             this.theTeamToolStripMenuItem.Name = "theTeamToolStripMenuItem";
-            this.theTeamToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.theTeamToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.theTeamToolStripMenuItem.Text = "The Team";
             this.theTeamToolStripMenuItem.Click += new System.EventHandler(this.theTeamToolStripMenuItem_Click);
+            // 
+            // toolStripStatusLabelScore
+            // 
+            this.toolStripStatusLabelScore.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripStatusLabelScore.Name = "toolStripStatusLabelScore";
+            this.toolStripStatusLabelScore.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabelScore.Text = "Score";
+            // 
+            // toolStripStatusLabelScoreDATA
+            // 
+            this.toolStripStatusLabelScoreDATA.AutoSize = false;
+            this.toolStripStatusLabelScoreDATA.BackColor = System.Drawing.Color.Red;
+            this.toolStripStatusLabelScoreDATA.Name = "toolStripStatusLabelScoreDATA";
+            this.toolStripStatusLabelScoreDATA.Size = new System.Drawing.Size(83, 17);
+            this.toolStripStatusLabelScoreDATA.Text = "0";
             // 
             // SnakeGameForm
             // 
@@ -223,6 +242,8 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem theTeamToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelScore;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelScoreDATA;
     }
 }
 

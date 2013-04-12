@@ -18,14 +18,17 @@ namespace snake1._0._2
             Queue<List<SnakePiecesModel>> queueOfLocationData = new Queue<List<SnakePiecesModel>>();
             Queue<List<SnakeFoodModel>> queueOfAppleLocation = new Queue<List<SnakeFoodModel>>();
             Queue<System.Windows.Forms.Panel> gameMap = new Queue<Panel>();
+            Queue<Player> thePlayer = new Queue<Player>();
+            thePlayer.Enqueue(new Player());
+
             SyncEvents mySyncEvents = new SyncEvents();
 
-            SnakeGameModel myGame = new SnakeGameModel(queueOfMovement, queueOfLocationData, queueOfAppleLocation, gameMap, mySyncEvents);   //Running game thread
+            SnakeGameModel myGame = new SnakeGameModel(queueOfMovement, queueOfLocationData, queueOfAppleLocation, gameMap, thePlayer, mySyncEvents);   //Running game thread
             SnakeGameForm mySnakeGameForm;                                                                    //GUI thread
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(mySnakeGameForm = new SnakeGameForm(queueOfMovement, queueOfLocationData, queueOfAppleLocation, gameMap, mySyncEvents));
+            Application.Run(mySnakeGameForm = new SnakeGameForm(queueOfMovement, queueOfLocationData, queueOfAppleLocation, gameMap, thePlayer, mySyncEvents));
 
             //mySyncEvents.ExitThreadEvent.Set();
             myGame.RunningGameThread.Join();

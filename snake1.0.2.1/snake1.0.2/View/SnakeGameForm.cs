@@ -25,10 +25,10 @@ namespace snake1._0._2.View
         private Queue<System.Windows.Forms.Panel> queueGameMap;
         private Thread updateFormThread;
         private SystemInfoProcessor mySysInfoCPU;
-
+        private Queue<Player> thePlayerQueue;
+        private Player thePlayer;
         private RemoteGameUserControl remoteGamePanel;
 
-        private int snakeMoveFrequency = 20;
         private int displayCpuCounter = 10;
 
         private Boolean lockMove = true;
@@ -36,7 +36,7 @@ namespace snake1._0._2.View
 
         //Constructor
         public SnakeGameForm(Queue<SnakeModel.movement> queue, Queue<List<SnakePiecesModel>> queueOfLocationData, Queue<List<SnakeFoodModel>> queueOfAppleLocation,
-                            Queue<System.Windows.Forms.Panel> queueGameMap, SyncEvents mySyncEvents)
+                            Queue<System.Windows.Forms.Panel> queueGameMap, Queue<Player> thePlayerQueue, SyncEvents mySyncEvents)
         {
             InitializeComponent();
 
@@ -49,6 +49,10 @@ namespace snake1._0._2.View
 
             this.snakeBody = new List<SnakePiecesView>();
             this.foodList = new List<FoodView>();
+            this.thePlayer = new Player();
+            this.thePlayerQueue = thePlayerQueue;
+
+
             this.queueOfMovement = queue;
             this.queueOfLocationData = queueOfLocationData;
             this.queueOfAppleLocation = queueOfAppleLocation;
@@ -62,8 +66,6 @@ namespace snake1._0._2.View
                 mySyncEvents.MapSizeChanged.Set();
             }
 
-            //this.observeAreaThread = new Thread(new ThreadStart(observeAreaProc));
-            //this.observeAreaThread.Start();
 
             this.updateFormThread = new Thread(new ThreadStart(updateFormProc));
             this.updateFormThread.Start();
@@ -74,6 +76,8 @@ namespace snake1._0._2.View
 
         private delegate void AddItemControlDelegate(Control ControlToUpdate, SnakePiecesView item);
         private delegate void AddFoodItemControlDelegate(Control ControlToUpdate, FoodView item);
+
+        private delegate void UpdatePlayerScoreControlDelegate(Control ControlToUpdate, String score);
 
         private delegate void ChangeLocControlDelegate(System.Windows.Forms.Control ControlToUpdate, System.Drawing.Point newLoc);
 
@@ -118,6 +122,19 @@ namespace snake1._0._2.View
             else
             {
                 ControlToUpdate.Controls.Add(item);
+            }
+        }
+        private void UpdatePlayerScore(Control ControlToUpdate, String score)
+        {
+            if (ControlToUpdate.InvokeRequired)
+            {
+                ControlToUpdate.Invoke(new UpdatePlayerScoreControlDelegate(UpdatePlayerScore),
+                    ControlToUpdate
+                    ,score);
+            }
+            else
+            {
+                ControlToUpdate.Text = score;
             }
         }
         private void ChangePiecesViewLoc(System.Windows.Forms.Control ControlToUpdate, System.Drawing.Point newLoc)
@@ -180,7 +197,6 @@ namespace snake1._0._2.View
                             }
                             this.currentMove = SnakeModel.movement.LEFT;
                         }
-                        //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.LEFT;
                         break;
                     case Keys.Right:
                         if (this.currentMove != SnakeModel.movement.LEFT)
@@ -192,7 +208,6 @@ namespace snake1._0._2.View
                             }
                             this.currentMove = SnakeModel.movement.RIGHT;
                         }
-                        //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.RIGHT;
                         break;
                     case Keys.Up:
                         if (this.currentMove != SnakeModel.movement.DOWN)
@@ -204,7 +219,6 @@ namespace snake1._0._2.View
                             }
                             this.currentMove = SnakeModel.movement.UP;
                         }
-                        //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.UP;
                         break;
                     case Keys.Down:
                         if (this.currentMove != SnakeModel.movement.UP)
@@ -216,7 +230,6 @@ namespace snake1._0._2.View
                             }
                             this.currentMove = SnakeModel.movement.DOWN;
                         }
-                        //this.myGame.TheSolidSnake.CurrentMove = SnakeModel.movement.DOWN;
                         break;
                     default:
                         break;
@@ -230,15 +243,6 @@ namespace snake1._0._2.View
 #region "Event Methods"
         private void sequenceGameTimer_Tick(object sender, EventArgs e)
         {
-            //if (this.snakeMoveFrequency.Equals(0))
-            //{
-            //    this.snakeMoveFrequency = 20;
-            //    this.mySyncEvents.ProduceCollectionEvent.Set();
-            //}
-            //else
-            //{
-            //    this.snakeMoveFrequency -= 1;
-            //}
             this.mySyncEvents.ProduceCollectionEvent.Set();
             if (this.displayCpuCounter.Equals(0))
             {
@@ -252,6 +256,8 @@ namespace snake1._0._2.View
             {
                 this.displayCpuCounter -= 1;
             }
+            this.toolStripStatusLabelScoreDATA.Text = thePlayer.Score.ToString();
+
 
             this.lockMove = true;
         }
@@ -285,14 +291,17 @@ namespace snake1._0._2.View
 
                     if (mySyncEvents.SelfBodyEatingEvent.WaitOne(0))
                     {
-                        MessageBox.Show("YOU LOSE BRO !!!", "Snake Game", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show(String.Format("YOU LOSE {0} !{1}Your score is {2}", this.thePlayer.Nickname, Environment.NewLine, this.thePlayer.Score), "Snake Game", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         CloseForm(this);
                         break;
                     }
 
                     if (mySyncEvents.AppleHaveBeenEatedEvent.WaitOne(0))
                     {
-                        this.snakeMoveFrequency -= 5;
+                        lock(((ICollection)thePlayerQueue).SyncRoot)
+                        {
+                            this.thePlayer = this.thePlayerQueue.Dequeue();
+                        }
                     }
                     
                     

@@ -30,6 +30,11 @@ namespace snake1._0._2.Model
             this.nickname = "Solid Snake";
             this.score = 0; //Replace by the score that is store in a file with xlinq
         }
+        public Player(String nickname, ulong score)
+        {
+            this.nickname = nickname;
+            this.score = score;
+        }
         #endregion
 
     }
