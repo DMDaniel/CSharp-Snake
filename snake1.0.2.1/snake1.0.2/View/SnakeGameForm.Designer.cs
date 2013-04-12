@@ -36,6 +36,8 @@
             this.toolStripStatusLabelCPUdata = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelDate = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelDATEdata = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelScore = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelScoreDATA = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelBackground = new System.Windows.Forms.Panel();
             this.groupBoxRemoteGame = new System.Windows.Forms.GroupBox();
             this.groupBoxPlayerGame = new System.Windows.Forms.GroupBox();
@@ -44,8 +46,6 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.theTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripStatusLabelScore = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelScoreDATA = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip.SuspendLayout();
             this.panelBackground.SuspendLayout();
             this.groupBoxPlayerGame.SuspendLayout();
@@ -55,6 +55,7 @@
             // sequenceGameTimer
             // 
             this.sequenceGameTimer.Enabled = true;
+            this.sequenceGameTimer.Interval = 70;
             this.sequenceGameTimer.Tick += new System.EventHandler(this.sequenceGameTimer_Tick);
             // 
             // GamePanel
@@ -110,6 +111,21 @@
             this.toolStripStatusLabelDATEdata.Name = "toolStripStatusLabelDATEdata";
             this.toolStripStatusLabelDATEdata.Size = new System.Drawing.Size(83, 17);
             this.toolStripStatusLabelDATEdata.Text = "01/04/13 14:01";
+            // 
+            // toolStripStatusLabelScore
+            // 
+            this.toolStripStatusLabelScore.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripStatusLabelScore.Name = "toolStripStatusLabelScore";
+            this.toolStripStatusLabelScore.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabelScore.Text = "Score";
+            // 
+            // toolStripStatusLabelScoreDATA
+            // 
+            this.toolStripStatusLabelScoreDATA.AutoSize = false;
+            this.toolStripStatusLabelScoreDATA.BackColor = System.Drawing.Color.Red;
+            this.toolStripStatusLabelScoreDATA.Name = "toolStripStatusLabelScoreDATA";
+            this.toolStripStatusLabelScoreDATA.Size = new System.Drawing.Size(83, 17);
+            this.toolStripStatusLabelScoreDATA.Text = "0";
             // 
             // panelBackground
             // 
@@ -184,21 +200,6 @@
             this.theTeamToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.theTeamToolStripMenuItem.Text = "The Team";
             this.theTeamToolStripMenuItem.Click += new System.EventHandler(this.theTeamToolStripMenuItem_Click);
-            // 
-            // toolStripStatusLabelScore
-            // 
-            this.toolStripStatusLabelScore.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.toolStripStatusLabelScore.Name = "toolStripStatusLabelScore";
-            this.toolStripStatusLabelScore.Size = new System.Drawing.Size(39, 17);
-            this.toolStripStatusLabelScore.Text = "Score";
-            // 
-            // toolStripStatusLabelScoreDATA
-            // 
-            this.toolStripStatusLabelScoreDATA.AutoSize = false;
-            this.toolStripStatusLabelScoreDATA.BackColor = System.Drawing.Color.Red;
-            this.toolStripStatusLabelScoreDATA.Name = "toolStripStatusLabelScoreDATA";
-            this.toolStripStatusLabelScoreDATA.Size = new System.Drawing.Size(83, 17);
-            this.toolStripStatusLabelScoreDATA.Text = "0";
             // 
             // SnakeGameForm
             // 

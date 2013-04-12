@@ -85,6 +85,12 @@
     <Compile Include="View\SnakeGameForm.Designer.cs">
       <DependentUpon>SnakeGameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\SnakeMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SnakeMenu.Designer.cs">
+      <DependentUpon>SnakeMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\SnakePiecesView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -99,6 +105,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="View\FoodView.resx">
       <DependentUpon>FoodView.cs</DependentUpon>
@@ -108,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\SnakeGameForm.resx">
       <DependentUpon>SnakeGameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\SnakeMenu.resx">
+      <DependentUpon>SnakeMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\SnakePiecesView.resx">
       <DependentUpon>SnakePiecesView.cs</DependentUpon>
@@ -136,6 +146,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ressources\serpent.jpg" />
     <Content Include="Ressources\Team2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
