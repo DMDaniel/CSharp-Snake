@@ -34,7 +34,7 @@ namespace snake1._0._2.View
         private Boolean lockMove = true;
 #endregion
 
-        //Constructor
+#region Constructor
         public SnakeGameForm(Queue<SnakeModel.movement> queue, Queue<List<SnakePiecesModel>> queueOfLocationData, Queue<List<SnakeFoodModel>> queueOfAppleLocation,
                             Queue<System.Windows.Forms.Panel> queueGameMap, Queue<Player> thePlayerQueue, SyncEvents mySyncEvents)
         {
@@ -71,6 +71,8 @@ namespace snake1._0._2.View
             this.updateFormThread.Start();
 
         }
+#endregion
+
 #region "Delegate"
         private delegate void CloseFormControlDelagate(Form formToClose);
 
@@ -276,7 +278,8 @@ namespace snake1._0._2.View
             }
         }
 #endregion
- 
+
+#region Updating form thread
         private void updateFormProc()
         {
             try
@@ -376,7 +379,9 @@ namespace snake1._0._2.View
                 //an error occur
             }
         }
+#endregion
 
+#region Methodes
         private void CleanGameAreaShowFood()
         {
             //Clear all elements on the panel
@@ -387,10 +392,7 @@ namespace snake1._0._2.View
         {
 
         }
-
-
-
-
+#endregion
 
     }
 }

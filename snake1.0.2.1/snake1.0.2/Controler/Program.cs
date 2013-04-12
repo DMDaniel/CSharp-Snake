@@ -14,12 +14,12 @@ namespace snake1._0._2
         [STAThread]
         static void Main()
         {
-            SnakeMenu mySnakeGameMenu;                                                                    //GUI thread
+            SnakeMenu mySnakeGameMenu;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(mySnakeGameMenu = new SnakeMenu());
-
+                                                        
         }
     }
 }
