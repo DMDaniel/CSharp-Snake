@@ -43,6 +43,7 @@
             this.scoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.theTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.panelBackground.SuspendLayout();
             this.groupBoxPlayerGame.SuspendLayout();
@@ -167,9 +168,18 @@
             // 
             // aboutToolStripMenuItem
             // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.theTeamToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.aboutToolStripMenuItem.Text = "About";
+            // 
+            // theTeamToolStripMenuItem
+            // 
+            this.theTeamToolStripMenuItem.Name = "theTeamToolStripMenuItem";
+            this.theTeamToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.theTeamToolStripMenuItem.Text = "The Team";
+            this.theTeamToolStripMenuItem.Click += new System.EventHandler(this.theTeamToolStripMenuItem_Click);
             // 
             // SnakeGameForm
             // 
@@ -212,6 +222,7 @@
         private System.Windows.Forms.ToolStripMenuItem scoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem theTeamToolStripMenuItem;
     }
 }
 

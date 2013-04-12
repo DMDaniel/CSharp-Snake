@@ -374,6 +374,11 @@ namespace snake1._0._2.View
             ClearGameArea(this.GamePanel);
         }
 
+        private void theTeamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
 
